@@ -1,0 +1,39 @@
+<div class="page-enter">
+   <div class="page-heading dashboard-heading">
+      <div><span class="eyebrow">YOUR CAREER OVERVIEW</span>
+         <h1 id="greeting">Good afternoon!</h1>
+         <p>Track your progress and make every opportunity count.</p>
+      </div><button class="btn btn-primary heading-add" data-action="add"><i data-icon="plus"></i> Add application</button>
+   </div>
+   <div class="stats-grid" id="dashboard-stats"></div>
+   <div class="dashboard-toolbar">
+      <div class="view-switch"><button class="active" data-mode="kanban"><i data-icon="layout-grid"></i> Kanban</button><button data-mode="list"><i
+               data-icon="list"></i> List</button></div>
+      <div class="toolbar-filters"><label class="select-wrap"><i data-icon="filter"></i><select id="status-filter">
+               <option value="">All statuses</option>
+            </select></label><label class="select-wrap"><i data-icon="arrow-down-wide-narrow"></i><select id="sort-filter">
+               <option value="recent">Sort: Recent</option>
+               <option value="company">Sort: Company</option>
+               <option value="oldest">Sort: Oldest</option>
+            </select></label><button class="btn btn-soft" data-action="new-column"><i data-icon="plus"></i> New column</button></div>
+   </div>
+   <div id="board-area"></div>
+   <div class="dashboard-bottom">
+      <section class="custom-section">
+         <div class="section-heading">
+            <div><span class="eyebrow">MAKE IT YOURS</span>
+               <h3>Custom columns</h3>
+            </div><button class="btn btn-soft btn-small" data-action="new-column"><i data-icon="plus"></i> New column</button>
+         </div>
+         <div id="custom-columns" class="custom-pills"></div>
+      </section>
+      <section class="activity-section">
+         <div class="section-heading">
+            <div><span class="eyebrow">THE LATEST</span>
+               <h3>Recent activity</h3>
+            </div><button class="text-btn" data-action="all-activity">See all <i data-icon="arrow-up-right"></i></button>
+         </div>
+         <div id="recent-activity" class="activity-list"></div>
+      </section>
+   </div>
+</div>

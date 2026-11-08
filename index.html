@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="id">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="theme-color" content="#f7f8fc">
+      <title>JobTrack — Career workspace</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+         rel="stylesheet">
+      <link rel="stylesheet" href="css/tokens.css">
+      <link rel="stylesheet" href="css/layout.css">
+      <link rel="stylesheet" href="css/components.css">
+      <link rel="stylesheet" href="css/pages.css">
+      <link rel="stylesheet" href="css/motion.css">
+      <link rel="stylesheet" href="css/responsive.css">
+      <link rel="stylesheet" href="css/cv-builder.css">
+      <style>
+.app-loading {
+   position: fixed;
+   inset: 0;
+   z-index: 9999;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 18px;
+   background: var(--bg, #f7f8fc);
+   transition: opacity .35s ease, visibility .35s ease;
+}
+
+.app-loading[hidden] {
+   display: none;
+}
+
+.loading-brand {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 22px;
+   font-weight: 800;
+}
+
+.loading-spinner {
+   width: 34px;
+   height: 34px;
+   border: 3px solid rgba(120, 100, 220, .15);
+   border-top-color: #7864dc;
+   border-radius: 50%;
+   animation: jobtrack-spin .8s linear infinite;
+}
+
+.app-loading p {
+   color: #888;
+   font-size: 13px;
+}
+
+@keyframes jobtrack-spin {
+   to {
+      transform: rotate(360deg);
+   }
+}
+      </style>
+      <script>
+(() => {
+   const saved = localStorage.getItem("jobtrack-theme") || "light";
+   document.documentElement.dataset.theme = saved;
+})();
+      </script>
+   </head>
+
+
+   <body>
+      <div id="app-loading" class="app-loading">
+         <div class="loading-brand">
+            <span class="brand-mark">J</span>
+            <span>Joobers</span>
+         </div>
+         <div class="loading-spinner"></div>
+         <p>Preparing your workspace...</p>
+      </div>
+      <section id="auth-screen" class="auth-screen" hidden>
+         <div class="auth-art">
+            <div class="auth-brand"><span class="brand-mark">J</span><span>Joobers</span></div>
+            <div class="auth-art-copy">
+               <span class="eyebrow">PANTAU TERUS RENCANA KARIRMU!</span>
+               <h1>Make your next<br><em>move count.</em></h1>
+               <p>One calm, colorful space to organize every opportunity and move closer to the role you want.</p>
+               <div class="art-orbit orbit-one"></div>
+               <div class="art-orbit orbit-two"></div>
+               <div class="art-card art-card-one"><span class="art-dot purple"></span>
+                  <div><b>Interview scheduled</b><small>Tomorrow · 10:30 AM</small></div><span class="art-check">✓</span>
+               </div>
+               <div class="art-card art-card-two"><span class="art-avatar">G</span>
+                  <div><b>New opportunity</b><small>Product Designer · Gojek</small></div>
+               </div>
+            </div>
+            <div class="auth-foot">A little progress every day adds up.</div>
+         </div>
+         <div class="auth-panel">
+            <form id="auth-form" class="auth-form">
+               <div class="mobile-brand"><span class="brand-mark">J</span> JobTrack</div>
+               <div class="auth-heading"><span class="eyebrow">WELCOME BACK</span>
+                  <h2 id="auth-title">Sign in to your workspace</h2>
+                  <p id="auth-subtitle">Track your applications and keep your momentum.</p>
+               </div>
+               <label id="name-wrap" class="field" hidden><span>Full name</span><input id="auth-name" type="text" placeholder="Your name" autocomplete="name">
+               </label>
+
+               <label class="field"><span>Email address</span><input id="auth-email" type="email" placeholder="name@email.com" autocomplete="email" required>
+               </label>
+
+               <label id="password-wrap" class="field"><span>Password</span><input id="auth-password" type="password" placeholder="At least 6 characters"
+                     autocomplete="current-password">
+               </label>
+
+               <label id="confirm-password-wrap" class="field" hidden>
+                  <span>Confirm password</span>
+                  <input id="auth-confirm-password" type="password" placeholder="Re-enter your password" autocomplete="new-password">
+               </label>
+
+               <p id="auth-error" class="form-error" role="alert"></p>
+               <button class="btn btn-primary btn-large full" id="auth-submit" type="submit">Sign in <span>→</span></button>
+               <button class="btn btn-google btn-large full" id="google-signin" type="button"><span class="google-g">G</span>
+                  Continue with Google</button>
+               <div class="auth-links"><a href="#" id="auth-toggle">Create an account</a><a href="#" id="forgot-link">Forgot
+                     password?</a></div>
+               <p class="auth-legal">By continuing, you agree to keep your career journey moving forward.</p>
+            </form>
+         </div>
+      </section>
+
+      <div id="app-shell" class="app-shell" hidden>
+         <aside class="sidebar" id="sidebar">
+            <a class="brand" href="#dashboard"><span class="brand-mark">J</span><span>JobTrack</span><span class="brand-beta">PRO</span></a>
+            <div class="side-label">WORKSPACE</div>
+            <nav class="main-nav" id="main-nav">
+               <a href="#dashboard" data-route="dashboard"><i data-icon="layout-dashboard"></i><span>Dashboard</span><kbd>⌘
+                     1</kbd></a>
+               <a href="#analytics" data-route="analytics"><i data-icon="chart-no-axes-combined"></i><span>Analytics</span></a>
+               <a href="#calendar" data-route="calendar"><i data-icon="calendar-days"></i><span>Calendar</span></a>
+               <a href="#cv" data-route="cv"><i data-icon="file-user"></i><span>CV Builder</span></a>
+            </nav>
+            <div class="side-label side-label-spaced">PREFERENCES</div>
+            <nav class="main-nav">
+               <a href="#settings" data-route="settings"><i data-icon="settings-2"></i><span>Settings</span></a>
+            </nav>
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-tip">
+               <div class="tip-spark">✦</div>
+               <div class="tip-illustration"><i data-icon="send"></i><span>↗</span></div><b>Keep going!</b>
+               <p>Your next opportunity might be one application away.</p>
+               <div class="tip-progress"><span></span></div><small>Consistency is your superpower</small>
+            </div>
+            <div class="sidebar-user" id="sidebar-user">
+               <div class="user-avatar" id="sidebar-avatar">F</div>
+               <div class="user-meta"><b id="sidebar-name">Your account</b><small id="sidebar-email">signed in</small></div>
+               <button class="icon-btn" id="sidebar-menu" aria-label="Account menu"><i data-icon="ellipsis"></i></button>
+            </div>
+         </aside>
+
+         <main class="main-area">
+            <header class="topbar">
+               <button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Open menu"><i data-icon="menu"></i></button>
+               <div class="breadcrumb"><span>Workspace</span><i data-icon="chevron-right"></i><b id="breadcrumb-page">Dashboard</b></div>
+               <div class="topbar-actions">
+                  <label class="global-search"><i data-icon="search"></i><input id="global-search" type="search"
+                        placeholder="Search company, position, notes..."><kbd>⌘ K</kbd></label>
+                  <button class="icon-btn theme-toggle" id="theme-toggle" title="Toggle theme"><i data-icon="moon"></i></button>
+                  <button class="icon-btn notification-btn" id="notification-btn" title="Notifications"><i data-icon="bell"></i><span></span></button>
+                  <button class="profile-trigger" id="profile-trigger"><span class="user-avatar" id="top-avatar">F</span><i
+                        data-icon="chevron-down"></i></button>
+                  <button class="btn btn-primary top-add" id="top-add"><i data-icon="plus"></i><span>Add application</span><i
+                        data-icon="chevron-down"></i></button>
+               </div>
+            </header>
+            <section id="page-content" class="page-content" aria-live="polite"></section>
+            <footer class="app-footer"><span>© 2026 JobTrack</span><span>Built for your next chapter <b>✦</b></span></footer>
+         </main>
+      </div>
+
+      <dialog id="application-dialog" class="app-dialog">
+         <form id="application-form">
+            <div class="dialog-head">
+               <div><span class="eyebrow">APPLICATION DETAILS</span>
+                  <h2 id="dialog-title">Add application</h2>
+               </div><button type="button" class="icon-btn" id="dialog-close"><i data-icon="x"></i></button>
+            </div>
+            <div class="form-grid">
+               <label class="field span-2"><span>Company name *</span><input name="company" required placeholder="e.g. Tokopedia"></label>
+               <label class="field span-2"><span>Position *</span><input name="position" required placeholder="e.g. Software Engineer"></label>
+               <label class="field"><span>Location</span><input name="location" placeholder="Jakarta / Remote"></label>
+               <label class="field"><span>Status</span><select name="status"></select></label>
+               <label class="field"><span>Important date</span><input name="date" type="date"></label>
+               <label class="field"><span>Job posting URL</span><input name="url" type="url" placeholder="https://..."></label>
+               <label class="field span-2"><span>Notes</span><textarea name="notes" rows="3"
+                     placeholder="Recruiter, salary range, next steps..."></textarea></label>
+            </div>
+            <div class="dialog-actions"><button type="button" class="btn btn-ghost danger-text" id="delete-application" hidden><i data-icon="trash-2"></i>
+                  Delete</button><span class="dialog-spacer"></span><button type="button" class="btn btn-ghost" id="cancel-dialog">Cancel</button><button
+                  type="submit" class="btn btn-primary">Save
+                  application <i data-icon="arrow-right"></i></button></div>
+         </form>
+      </dialog>
+      <dialog id="column-dialog" class="app-dialog column-dialog">
+         <form id="column-form">
+
+            <div class="dialog-head">
+               <div>
+                  <span class="eyebrow">WORKFLOW CUSTOMIZATION</span>
+                  <h2>Create new column</h2>
+               </div>
+
+               <button type="button" class="icon-btn" id="column-dialog-close" aria-label="Close">
+                  <i data-icon="x"></i>
+               </button>
+            </div>
+
+            <div class="column-form-content">
+               <label class="field">
+                  <span>Column name</span>
+
+                  <input id="column-name" type="text" placeholder="e.g. Medical Check Up" maxlength="35" autocomplete="off" required>
+               </label>
+
+               <p id="column-error" class="form-error" role="alert"></p>
+
+               <p class="column-modal-hint">
+                  Your new column will be added before Offering and Rejected.
+               </p>
+            </div>
+
+            <div class="dialog-actions">
+               <span class="dialog-spacer"></span>
+
+               <button type="button" class="btn btn-ghost" id="column-dialog-cancel">
+                  Cancel
+               </button>
+
+               <button type="submit" class="btn btn-primary">
+                  Create column
+                  <i data-icon="arrow-right"></i>
+               </button>
+            </div>
+
+         </form>
+      </dialog>
+      <div id="toast-region" class="toast-region" aria-live="polite"></div>
+      <div id="popover-root"></div>
+      <script type="module" src="js/app.js"></script>
+   </body>
+
+</html>
